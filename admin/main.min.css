@@ -1,0 +1,48 @@
+:root {
+  --bp_error: red;
+  --bp_success: green;
+  --bp_warning: orange;
+  --bp_primary: #1E53D1;
+  --bp_primary-h: #1b4cbd;
+  --bp_primary-c: #FFFFFF;
+  --bp_secondary: #FF9821;
+  --bp_secondary-h: #dd841e;
+  --bp_secondary-c: #222222;
+}
+
+#bp-settings-page {
+  margin-left: -20px;
+}
+#bp-settings-page * {
+  box-sizing: border-box;
+}
+
+.bp__wrapper {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1.875rem;
+}
+
+.bp h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+.bp h1,
+.bp h2,
+.bp h3,
+.bp h4,
+.bp h5,
+.bp h6,
+.bp p {
+  margin: 0;
+  padding: 0;
+  line-height: 1.4;
+}
+
+.bp__hero-root {
+  background-color: var(--bp_primary);
+}
+.bp__hero-root h1 {
+  color: white;
+  margin-bottom: 1.875rem;
+}

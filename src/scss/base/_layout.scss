@@ -1,0 +1,16 @@
+@use './index' as *;
+
+#bp-settings-page {
+    margin-left: -20px;
+    * {
+        box-sizing: border-box;
+    }
+}
+
+.bp {
+    &__wrapper {
+        max-width: 100%;
+        margin: 0 auto;
+        padding: rem(30);
+    }
+}

@@ -1,0 +1,11 @@
+@use './index' as *;
+
+.bp {
+    &__hero-root {
+        background-color: var(--bp_primary);
+        h1 {
+            color: white;
+            margin-bottom: $spacing;
+        }
+    }
+}
