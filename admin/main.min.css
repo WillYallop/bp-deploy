@@ -2,12 +2,13 @@
   --bp_error: red;
   --bp_success: green;
   --bp_warning: orange;
-  --bp_primary: #1E53D1;
+  --bp_primary: #1e53d1;
   --bp_primary-h: #1b4cbd;
-  --bp_primary-c: #FFFFFF;
-  --bp_secondary: #FF9821;
+  --bp_primary-c: #ffffff;
+  --bp_secondary: #ff9821;
   --bp_secondary-h: #dd841e;
   --bp_secondary-c: #222222;
+  --bp_tertiary: #121316;
 }
 
 #bp-settings-page {
@@ -37,6 +38,9 @@
   font-size: 1.25rem;
   font-weight: bold;
 }
+.bp p {
+  font-size: 1rem;
+}
 .bp h1,
 .bp h2,
 .bp h3,
@@ -47,6 +51,21 @@
   margin: 0;
   padding: 0;
   line-height: 1.4;
+  color: var(--bp_tertiary);
+}
+
+.bp__button {
+  transition: all 0.2s ease-in-out;
+  background-color: var(--bp_primary);
+  border-radius: 0.3125rem;
+  border: none;
+  padding: 0.625rem 1.875rem;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.bp__button:hover {
+  background-color: var(--bp_primary-h);
 }
 
 .bp__hero-root {
@@ -96,4 +115,22 @@
   padding: 0.625rem 0;
   font-weight: 500;
   cursor: pointer;
+}
+
+.bp__deploy-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3.75rem 0;
+}
+.bp__deploy-tab svg {
+  height: 3.125rem;
+  fill: var(--bp_tertiary);
+  margin-bottom: 0.625rem;
+}
+.bp__deploy-tab h2 {
+  margin-bottom: 0.3125rem;
+}
+.bp__deploy-tab p {
+  margin-bottom: 1.25rem;
 }

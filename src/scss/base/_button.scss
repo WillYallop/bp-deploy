@@ -1,0 +1,17 @@
+@use "./index" as *;
+
+.bp {
+  &__button {
+    transition: all 0.2s ease-in-out;
+    background-color: var(--bp_primary);
+    border-radius: rem(5);
+    border: none;
+    padding: rem(10) rem(30);
+    color: white;
+    font-size: rem(16);
+    cursor: pointer;
+    &:hover {
+      background-color: var(--bp_primary-h);
+    }
+  }
+}

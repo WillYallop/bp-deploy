@@ -1,0 +1,21 @@
+@use "./index" as *;
+
+.bp {
+  &__deploy-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: rem(60) 0;
+    svg {
+      height: rem(50);
+      fill: var(--bp_tertiary);
+      margin-bottom: rem(10);
+    }
+    h2 {
+      margin-bottom: rem(5);
+    }
+    p {
+      margin-bottom: rem(20);
+    }
+  }
+}

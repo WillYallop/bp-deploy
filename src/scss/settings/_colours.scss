@@ -1,35 +1,46 @@
-
 // ------------------------------------
 // Background colours
 // ------------------------------------
 $colours: (
-    _error: red,
-    _success: green,
-    _warning: orange,
+  _error: red,
+  _success: green,
+  _warning: orange,
 
-    _01_01: #1E53D1, // primary
-    _01_02: #1b4cbd, // primary hover
-    _01_03: #FFFFFF, // primary colour
+  _01_01: #1e53d1,
+  // primary
+  _01_02: #1b4cbd,
+  // primary hover
+  _01_03: #ffffff,
 
-    _02_01: #FF9821, // secondary
-    _02_02: #dd841e, // secondary hover
-    _02_03: #222222, // secondary colour
+  // primary colour
+  _02_01: #ff9821,
+  // secondary
+  _02_02: #dd841e,
+  // secondary hover
+  _02_03: #222222,
 
+  // secondary colour
+  _03_01: #121316,
+
+  // tertiary
 );
 
 // Light mode
 :root {
-    --bp_error: #{map-get($colours, _error)};
-    --bp_success: #{map-get($colours, _success)};
-    --bp_warning: #{map-get($colours, _warning)};
+  --bp_error: #{map-get($colours, _error)};
+  --bp_success: #{map-get($colours, _success)};
+  --bp_warning: #{map-get($colours, _warning)};
 
-    // primary
-    --bp_primary: #{map-get($colours, _01_01)};
-    --bp_primary-h: #{map-get($colours, _01_02)};
-    --bp_primary-c: #{map-get($colours, _01_03)};
+  // primary
+  --bp_primary: #{map-get($colours, _01_01)};
+  --bp_primary-h: #{map-get($colours, _01_02)};
+  --bp_primary-c: #{map-get($colours, _01_03)};
 
-    // secondary
-    --bp_secondary: #{map-get($colours, _02_01)};
-    --bp_secondary-h: #{map-get($colours, _02_02)};
-    --bp_secondary-c: #{map-get($colours, _02_03)};
+  // secondary
+  --bp_secondary: #{map-get($colours, _02_01)};
+  --bp_secondary-h: #{map-get($colours, _02_02)};
+  --bp_secondary-c: #{map-get($colours, _02_03)};
+
+  // tertiary
+  --bp_tertiary: #{map-get($colours, _03_01)};
 }

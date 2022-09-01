@@ -1,6 +1,8 @@
 // Base
-@use './base/layout';
-@use './base/typography';
+@use "./base/layout";
+@use "./base/typography";
+@use "./base/button";
 
 // components
-@use './components/hero';
+@use "./components/hero";
+@use "./components/deployTab";
