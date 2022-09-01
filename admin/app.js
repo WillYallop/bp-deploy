@@ -35,6 +35,54 @@ root.render((0, jsx_runtime_1.jsx)(react_1["default"].StrictMode, {
 
 /***/ }),
 
+/***/ "./src/ts/components/DeployTab.tsx":
+/*!*****************************************!*\
+  !*** ./src/ts/components/DeployTab.tsx ***!
+  \*****************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+
+var __assign = this && this.__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var jsx_runtime_1 = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var DeployTab = function DeployTab() {
+  return (0, jsx_runtime_1.jsx)("div", __assign({
+    className: "bp__wrapper"
+  }, {
+    children: (0, jsx_runtime_1.jsx)("div", __assign({
+      className: "bp__tab-wrapper"
+    }, {
+      children: (0, jsx_runtime_1.jsx)("h2", {
+        children: "Deploy Tab"
+      })
+    }))
+  }));
+};
+
+exports["default"] = DeployTab;
+
+/***/ }),
+
 /***/ "./src/ts/components/Hero.tsx":
 /*!************************************!*\
   !*** ./src/ts/components/Hero.tsx ***!
@@ -65,21 +113,201 @@ Object.defineProperty(exports, "__esModule", ({
 
 var jsx_runtime_1 = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
-var Hero = function Hero() {
+var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var Hero = function Hero(_a) {
+  var activeTab = _a.activeTab,
+      setActiveTab = _a.setActiveTab;
+
+  var _b = (0, react_1.useState)({
+    left: 0,
+    width: 0
+  }),
+      activeIndicator = _b[0],
+      setActiveIndicator = _b[1];
+
+  var updateActiveIndicator = function updateActiveIndicator(tab) {
+    var tabElement = document.querySelector("[ data-bp-nav=\"".concat(tab, "\"]"));
+    var tabNavEle = document.getElementById("bp-tab-nav");
+
+    if (tabElement && tabNavEle) {
+      var left = tabElement.getBoundingClientRect().left - tabNavEle.getBoundingClientRect().left;
+      var width = tabElement.getBoundingClientRect().width;
+      setActiveIndicator({
+        left: left,
+        width: width
+      });
+    }
+  };
+
+  var navigateTo = function navigateTo(tab) {
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    urlParams.set("tab", tab);
+    window.history.pushState({}, "", "".concat(window.location.pathname, "?").concat(urlParams.toString()));
+    setActiveTab(tab);
+    updateActiveIndicator(tab);
+  };
+
+  (0, react_1.useEffect)(function () {
+    updateActiveIndicator(activeTab);
+  }, [activeTab]);
   return (0, jsx_runtime_1.jsx)("div", __assign({
     className: "bp__hero-root"
   }, {
-    children: (0, jsx_runtime_1.jsx)("div", __assign({
+    children: (0, jsx_runtime_1.jsxs)("div", __assign({
       className: "bp__wrapper"
     }, {
-      children: (0, jsx_runtime_1.jsx)("h1", {
+      children: [(0, jsx_runtime_1.jsx)("h1", {
         children: "BP Deploy"
-      })
+      }), (0, jsx_runtime_1.jsxs)("nav", __assign({
+        id: "bp-tab-nav",
+        className: "bp__hero-root__nav"
+      }, {
+        children: [(0, jsx_runtime_1.jsxs)("ul", {
+          children: [(0, jsx_runtime_1.jsx)("li", __assign({
+            "data-bp-nav": "deploy",
+            className: activeTab === "deploy" ? "active" : ""
+          }, {
+            children: (0, jsx_runtime_1.jsx)("button", __assign({
+              onClick: function onClick() {
+                return navigateTo("deploy");
+              }
+            }, {
+              children: "Deploy"
+            }))
+          })), (0, jsx_runtime_1.jsx)("li", __assign({
+            "data-bp-nav": "history",
+            className: activeTab === "history" ? "active" : ""
+          }, {
+            children: (0, jsx_runtime_1.jsx)("button", __assign({
+              onClick: function onClick() {
+                return navigateTo("history");
+              }
+            }, {
+              children: "History"
+            }))
+          })), (0, jsx_runtime_1.jsx)("li", __assign({
+            "data-bp-nav": "settings",
+            className: activeTab === "settings" ? "active" : ""
+          }, {
+            children: (0, jsx_runtime_1.jsx)("button", __assign({
+              onClick: function onClick() {
+                return navigateTo("settings");
+              }
+            }, {
+              children: "Settings"
+            }))
+          }))]
+        }), (0, jsx_runtime_1.jsx)("span", {
+          style: {
+            left: activeIndicator.left,
+            width: activeIndicator.width
+          },
+          className: "bp__hero-root__nav__active-ind"
+        })]
+      }))]
     }))
   }));
 };
 
 exports["default"] = Hero;
+
+/***/ }),
+
+/***/ "./src/ts/components/HistoryTab.tsx":
+/*!******************************************!*\
+  !*** ./src/ts/components/HistoryTab.tsx ***!
+  \******************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+
+var __assign = this && this.__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var jsx_runtime_1 = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var HistoryTab = function HistoryTab() {
+  return (0, jsx_runtime_1.jsx)("div", __assign({
+    className: "bp__wrapper"
+  }, {
+    children: (0, jsx_runtime_1.jsx)("div", __assign({
+      className: "bp__tab-wrapper"
+    }, {
+      children: (0, jsx_runtime_1.jsx)("h2", {
+        children: "History Tab"
+      })
+    }))
+  }));
+};
+
+exports["default"] = HistoryTab;
+
+/***/ }),
+
+/***/ "./src/ts/components/SettingsTab.tsx":
+/*!*******************************************!*\
+  !*** ./src/ts/components/SettingsTab.tsx ***!
+  \*******************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+
+var __assign = this && this.__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var jsx_runtime_1 = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var SettingsTab = function SettingsTab() {
+  return (0, jsx_runtime_1.jsx)("div", __assign({
+    className: "bp__wrapper"
+  }, {
+    children: (0, jsx_runtime_1.jsx)("div", __assign({
+      className: "bp__tab-wrapper"
+    }, {
+      children: (0, jsx_runtime_1.jsx)("h2", {
+        children: "Settings Tab"
+      })
+    }))
+  }));
+};
+
+exports["default"] = SettingsTab;
 
 /***/ }),
 
@@ -100,7 +328,7 @@ var __importDefault = this && this.__importDefault || function (mod) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.Hero = void 0;
+exports.HistoryTab = exports.DeployTab = exports.SettingsTab = exports.Hero = void 0;
 
 var Hero_1 = __webpack_require__(/*! ./Hero */ "./src/ts/components/Hero.tsx");
 
@@ -108,6 +336,33 @@ Object.defineProperty(exports, "Hero", ({
   enumerable: true,
   get: function get() {
     return __importDefault(Hero_1)["default"];
+  }
+}));
+
+var SettingsTab_1 = __webpack_require__(/*! ./SettingsTab */ "./src/ts/components/SettingsTab.tsx");
+
+Object.defineProperty(exports, "SettingsTab", ({
+  enumerable: true,
+  get: function get() {
+    return __importDefault(SettingsTab_1)["default"];
+  }
+}));
+
+var DeployTab_1 = __webpack_require__(/*! ./DeployTab */ "./src/ts/components/DeployTab.tsx");
+
+Object.defineProperty(exports, "DeployTab", ({
+  enumerable: true,
+  get: function get() {
+    return __importDefault(DeployTab_1)["default"];
+  }
+}));
+
+var HistoryTab_1 = __webpack_require__(/*! ./HistoryTab */ "./src/ts/components/HistoryTab.tsx");
+
+Object.defineProperty(exports, "HistoryTab", ({
+  enumerable: true,
+  get: function get() {
+    return __importDefault(HistoryTab_1)["default"];
   }
 }));
 
@@ -143,13 +398,45 @@ Object.defineProperty(exports, "__esModule", ({
 
 var jsx_runtime_1 = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
+var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
 var index_1 = __webpack_require__(/*! ../components/index */ "./src/ts/components/index.tsx");
 
 var Settings = function Settings() {
-  return (0, jsx_runtime_1.jsx)("div", __assign({
-    className: 'bp'
+  var _a = (0, react_1.useState)("deploy"),
+      activeTab = _a[0],
+      setActiveTab = _a[1];
+
+  (0, react_1.useEffect)(function () {
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var tab = urlParams.get("tab");
+
+    switch (tab) {
+      case "deploy":
+        setActiveTab("deploy");
+        break;
+
+      case "settings":
+        setActiveTab("settings");
+        break;
+
+      case "history":
+        setActiveTab("history");
+        break;
+
+      default:
+        setActiveTab("deploy");
+        break;
+    }
+  }, []);
+  return (0, jsx_runtime_1.jsxs)("div", __assign({
+    className: "bp"
   }, {
-    children: (0, jsx_runtime_1.jsx)(index_1.Hero, {})
+    children: [(0, jsx_runtime_1.jsx)(index_1.Hero, {
+      activeTab: activeTab,
+      setActiveTab: setActiveTab
+    }), activeTab === "deploy" && (0, jsx_runtime_1.jsx)(index_1.DeployTab, {}), activeTab === "settings" && (0, jsx_runtime_1.jsx)(index_1.SettingsTab, {}), activeTab === "history" && (0, jsx_runtime_1.jsx)(index_1.HistoryTab, {})]
   }));
 };
 
@@ -35019,7 +35306,7 @@ if (false) {} else {
 /******/ 			return __webpack_require__.O(result);
 /******/ 		}
 /******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunkgrit_deploy"] = self["webpackChunkgrit_deploy"] || [];
+/******/ 		var chunkLoadingGlobal = self["webpackChunkbp_deploy"] = self["webpackChunkbp_deploy"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 	})();

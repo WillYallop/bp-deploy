@@ -1,16 +1,22 @@
-@use './index' as *;
+@use "./index" as *;
 
 #bp-settings-page {
-    margin-left: -20px;
-    * {
-        box-sizing: border-box;
-    }
+  margin-left: -20px;
+  * {
+    box-sizing: border-box;
+  }
 }
 
 .bp {
-    &__wrapper {
-        max-width: 100%;
-        margin: 0 auto;
-        padding: rem(30);
-    }
+  &__wrapper {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: rem(30);
+  }
+  &__tab-wrapper {
+    background-color: white;
+    border-radius: rem(5);
+    padding: rem(20);
+    margin-top: rem(-80);
+  }
 }

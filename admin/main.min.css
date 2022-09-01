@@ -22,9 +22,19 @@
   margin: 0 auto;
   padding: 1.875rem;
 }
+.bp__tab-wrapper {
+  background-color: white;
+  border-radius: 0.3125rem;
+  padding: 1.25rem;
+  margin-top: -5rem;
+}
 
 .bp h1 {
   font-size: 2rem;
+  font-weight: bold;
+}
+.bp h2 {
+  font-size: 1.25rem;
   font-weight: bold;
 }
 .bp h1,
@@ -41,8 +51,49 @@
 
 .bp__hero-root {
   background-color: var(--bp_primary);
+  padding-bottom: 1.875rem;
 }
 .bp__hero-root h1 {
   color: white;
-  margin-bottom: 1.875rem;
+  margin-bottom: 1.25rem;
+}
+.bp__hero-root__nav {
+  position: relative;
+}
+.bp__hero-root__nav::before {
+  content: "";
+  position: absolute;
+  bottom: -0.25rem;
+  height: 0.25rem;
+  left: 0;
+  right: 0;
+  background-color: var(--bp_primary-h);
+  border-radius: 0.3125rem;
+}
+.bp__hero-root__nav__active-ind {
+  position: absolute;
+  bottom: -0.25rem;
+  height: 0.25rem;
+  width: 6.25rem;
+  left: 0;
+  background-color: var(--bp_secondary);
+  transition: 0.3s ease-in-out;
+  transition-property: left width;
+  border-radius: 0.3125rem;
+}
+.bp__hero-root__nav ul {
+  display: flex;
+}
+.bp__hero-root__nav ul li {
+  margin-bottom: 0;
+  margin-right: 1.875rem;
+}
+.bp__hero-root__nav ul li button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  padding: 0.625rem 0;
+  font-weight: 500;
+  cursor: pointer;
 }
