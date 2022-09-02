@@ -209,15 +209,13 @@ var form_valid_1 = __importDefault(__webpack_require__(/*! ../../util/form-valid
 
 var Form = function Form(_a) {
   var inner = _a.inner,
+      onSubmit = _a.onSubmit,
+      state = _a.state,
       customValidation = _a.customValidation;
 
-  var _b = (0, react_1.useState)("default"),
-      state = _b[0],
-      setState = _b[1];
-
-  var _c = (0, react_1.useState)(true),
-      disableForm = _c[0],
-      setDisableForm = _c[1];
+  var _b = (0, react_1.useState)(true),
+      disableForm = _b[0],
+      setDisableForm = _b[1];
 
   var onChange = function onChange(event) {
     setDisableForm((0, form_valid_1["default"])(event, customValidation));
@@ -226,9 +224,18 @@ var Form = function Form(_a) {
   return (0, jsx_runtime_1.jsxs)("form", __assign({
     className: "bp__form-wrapper",
     onChange: onChange,
-    noValidate: true
+    noValidate: true,
+    onSubmit: onSubmit
   }, {
-    children: [inner, (0, jsx_runtime_1.jsx)("button", __assign({
+    children: [inner, state === "success" ? (0, jsx_runtime_1.jsx)("div", __assign({
+      className: "bp__form-success"
+    }, {
+      children: (0, jsx_runtime_1.jsxs)("p", {
+        children: [(0, jsx_runtime_1.jsx)("strong", {
+          children: "Success!"
+        }), " Your settings have been saved."]
+      })
+    })) : null, (0, jsx_runtime_1.jsx)("button", __assign({
       className: "bp__button",
       type: "submit",
       name: "intent",
@@ -658,6 +665,12 @@ var __assign = this && this.__assign || function () {
   return __assign.apply(this, arguments);
 };
 
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
@@ -666,28 +679,34 @@ var jsx_runtime_1 = __webpack_require__(/*! react/jsx-runtime */ "./node_modules
 
 var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
+var get_nonce_1 = __importDefault(__webpack_require__(/*! ../../util/get-nonce */ "./src/ts/util/get-nonce.ts"));
+
 var index_1 = __webpack_require__(/*! ../index */ "./src/ts/components/index.tsx");
 
 var SettingsTab = function SettingsTab() {
-  var _a = (0, react_1.useState)(""),
-      user = _a[0],
-      setUser = _a[1];
+  var _a = (0, react_1.useState)(false),
+      loaded = _a[0],
+      setLoaded = _a[1];
 
-  var _b = (0, react_1.useState)(""),
-      password = _b[0],
-      setPassword = _b[1];
+  var _b = (0, react_1.useState)("default"),
+      formState = _b[0],
+      setFormState = _b[1];
 
   var _c = (0, react_1.useState)(""),
-      workspaceName = _c[0],
-      setWorkspaceName = _c[1];
+      user = _c[0],
+      setUser = _c[1];
 
   var _d = (0, react_1.useState)(""),
-      repositoryName = _d[0],
-      setRepositoryName = _d[1];
+      workspaceName = _d[0],
+      setWorkspaceName = _d[1];
 
   var _e = (0, react_1.useState)(""),
-      branchName = _e[0],
-      setBranchName = _e[1];
+      repositoryName = _e[0],
+      setRepositoryName = _e[1];
+
+  var _f = (0, react_1.useState)(""),
+      branchName = _f[0],
+      setBranchName = _f[1];
 
   var FormInner = (0, jsx_runtime_1.jsxs)(jsx_runtime_1.Fragment, {
     children: [(0, jsx_runtime_1.jsxs)("div", __assign({
@@ -695,33 +714,19 @@ var SettingsTab = function SettingsTab() {
     }, {
       children: [(0, jsx_runtime_1.jsx)("h2", {
         children: "Credentials"
-      }), (0, jsx_runtime_1.jsx)("p", {
-        children: "Create a new Bitbucket app password with pipeline read and write access!"
-      }), (0, jsx_runtime_1.jsx)("div", __assign({
-        className: "bp__tab-wrapper__row__col"
-      }, {
-        children: (0, jsx_runtime_1.jsx)(index_1.Input, {
-          value: user,
-          onChange: setUser,
-          type: "text",
-          required: true,
-          label: "User",
-          name: "bp_userInp",
-          error: "This field is required"
-        })
-      })), (0, jsx_runtime_1.jsx)("div", __assign({
-        className: "bp__tab-wrapper__row__col"
-      }, {
-        children: (0, jsx_runtime_1.jsx)(index_1.Input, {
-          value: password,
-          onChange: setPassword,
-          type: "password",
-          required: true,
-          label: "Password",
-          name: "bp_passwordInp",
-          error: "This field is required"
-        })
-      }))]
+      }), (0, jsx_runtime_1.jsxs)("p", {
+        children: ["Create a new Bitbucket app password with pipeline read and write access! The app password must be defined in the wp-config such as:", " ", (0, jsx_runtime_1.jsx)("code", {
+          children: "define('BP_APP_PASSWORD', 'THE_VALUE');"
+        }), "."]
+      }), (0, jsx_runtime_1.jsx)(index_1.Input, {
+        value: user,
+        onChange: setUser,
+        type: "text",
+        required: true,
+        label: "User",
+        name: "bp_userInp",
+        error: "This field is required"
+      })]
     })), (0, jsx_runtime_1.jsxs)("div", __assign({
       className: "bp__tab-wrapper__row"
     }, {
@@ -756,15 +761,74 @@ var SettingsTab = function SettingsTab() {
       })]
     }))]
   });
+
+  var submitForm = function submitForm(e) {
+    e.preventDefault();
+    setFormState("submitting");
+    var nonce = (0, get_nonce_1["default"])();
+    fetch("/wp-json/bp-deploy/v1/settings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-WP-Nonce": nonce
+      },
+      body: JSON.stringify({
+        user: user,
+        workspaceName: workspaceName,
+        repositoryName: repositoryName,
+        branchName: branchName
+      })
+    }).then(function (res) {
+      return res.json();
+    }).then(function (data) {
+      setTimeout(function () {
+        setFormState("success");
+      }, 1000);
+      setTimeout(function () {
+        setFormState("default");
+      }, 5000);
+    });
+  };
+
+  var getSettings = function getSettings() {
+    var nonce = (0, get_nonce_1["default"])();
+    fetch("/wp-json/bp-deploy/v1/settings", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-WP-Nonce": nonce
+      }
+    }).then(function (res) {
+      return res.json();
+    }).then(function (data) {
+      if (data.user) setUser(data.user);
+      if (data.workspaceName) setWorkspaceName(data.workspaceName);
+      if (data.repositoryName) setRepositoryName(data.repositoryName);
+      if (data.branchName) setBranchName(data.branchName);
+      setLoaded(true);
+    });
+  };
+
+  (0, react_1.useEffect)(function () {
+    getSettings();
+  }, []);
   return (0, jsx_runtime_1.jsx)("div", __assign({
     className: "bp__wrapper"
   }, {
     children: (0, jsx_runtime_1.jsx)("div", __assign({
       className: "bp__tab-wrapper"
     }, {
-      children: (0, jsx_runtime_1.jsx)(index_1.Form, {
-        inner: FormInner
-      })
+      children: loaded ? (0, jsx_runtime_1.jsx)(index_1.Form, {
+        inner: FormInner,
+        onSubmit: submitForm,
+        state: formState
+      }) : (0, jsx_runtime_1.jsx)("div", __assign({
+        className: "bp__loading-con"
+      }, {
+        children: (0, jsx_runtime_1.jsx)("h2", {
+          children: "Loading..."
+        })
+      }))
     }))
   }));
 };
@@ -970,6 +1034,28 @@ var formIsValid = function formIsValid(e, customValidation) {
 };
 
 exports["default"] = formIsValid;
+
+/***/ }),
+
+/***/ "./src/ts/util/get-nonce.ts":
+/*!**********************************!*\
+  !*** ./src/ts/util/get-nonce.ts ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+function getNonce() {
+  var bpSettingsPage = document.getElementById("bp-settings-page");
+  var nonce = (bpSettingsPage === null || bpSettingsPage === void 0 ? void 0 : bpSettingsPage.getAttribute("data-nonce")) || "";
+  return nonce;
+}
+
+exports["default"] = getNonce;
 
 /***/ }),
 

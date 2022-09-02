@@ -42,6 +42,12 @@
       }
     }
   }
+  &__loading-con {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: rem(80) 0;
+  }
   // Inputs
   &__input-wrapper {
     width: 100%;
@@ -77,5 +83,8 @@
       font-size: rem(16);
       margin-top: rem(10);
     }
+  }
+  &__form-success {
+    margin-bottom: rem(10);
   }
 }

@@ -29,8 +29,9 @@ add_filter( "plugin_action_links_" . plugin_basename( __FILE__ ), 'BP_add_settin
 // ----------------------
 // Includes
 // ----------------------
-// setup
 require_once plugin_dir_path( __FILE__ ) . 'includes/setup.php';
-
-// templates
+require_once plugin_dir_path( __FILE__ ) . 'includes/routes.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/templates/settings-page.php';
+// callbacks
+require_once plugin_dir_path( __FILE__ ) . 'includes/callbacks/get-settings.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/callbacks/save-settings.php';

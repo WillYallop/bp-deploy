@@ -54,6 +54,12 @@
 .bp__tab-wrapper__row__col {
   width: calc(50% - 0.625rem);
 }
+.bp__loading-con {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5rem 0;
+}
 .bp__input-wrapper {
   width: 100%;
   margin-bottom: 0.625rem;
@@ -86,6 +92,9 @@
   color: rgb(197, 22, 22);
   font-size: 1rem;
   margin-top: 0.625rem;
+}
+.bp__form-success {
+  margin-bottom: 0.625rem;
 }
 
 .bp h1 {
