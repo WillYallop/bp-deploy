@@ -2,12 +2,12 @@
   --bp_error: red;
   --bp_success: green;
   --bp_warning: orange;
-  --bp_primary: #1e53d1;
-  --bp_primary-h: #1b4cbd;
+  --bp_primary: #0f0f0f;
+  --bp_primary-h: #1d1d1d;
   --bp_primary-c: #ffffff;
-  --bp_secondary: #ff9821;
-  --bp_secondary-h: #dd841e;
-  --bp_secondary-c: #222222;
+  --bp_secondary: #6319ec;
+  --bp_secondary-h: #5f1dd8;
+  --bp_secondary-c: #ffffff;
   --bp_tertiary: #121316;
 }
 
@@ -16,6 +16,11 @@
 }
 #bp-settings-page * {
   box-sizing: border-box;
+}
+@media screen and (max-width: 768px) {
+  #bp-settings-page {
+    margin-left: -10px;
+  }
 }
 
 .bp__wrapper {
@@ -28,6 +33,59 @@
   border-radius: 0.3125rem;
   padding: 1.25rem;
   margin-top: -5rem;
+}
+.bp__tab-wrapper__row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+.bp__tab-wrapper__row h2 {
+  width: 100%;
+  margin-bottom: 0.3125rem !important;
+}
+.bp__tab-wrapper__row p {
+  width: 100%;
+  margin-bottom: 0.9375rem !important;
+  padding-bottom: 0.625rem !important;
+  border-bottom: 0.0625rem solid rgb(211, 211, 211);
+}
+.bp__tab-wrapper__row__col {
+  width: calc(50% - 0.625rem);
+}
+.bp__input-wrapper {
+  width: 100%;
+  margin-bottom: 0.625rem;
+}
+.bp__input-wrapper.has-error input {
+  border-color: red;
+}
+.bp__input-wrapper.has-error .bp__input-wrapper__error {
+  display: block;
+}
+.bp__input-wrapper label {
+  font-size: 0.875rem;
+}
+.bp__input-wrapper input {
+  margin: 0.3125rem 0 0;
+  width: 100%;
+  border: 0.0625rem solid rgb(167, 167, 167);
+  padding: 0 0.625rem;
+  height: 2.5rem;
+  font-size: 1rem;
+  color: var(--bp_primary);
+  border-radius: 0.3125rem;
+}
+.bp__input-wrapper input:focus {
+  outline: none !important;
+  border: 0.0625rem solid var(--bp_primary);
+}
+.bp__input-wrapper__error {
+  display: none;
+  color: rgb(197, 22, 22);
+  font-size: 1rem;
+  margin-top: 0.625rem;
 }
 
 .bp h1 {
@@ -67,10 +125,15 @@
 .bp__button:hover {
   background-color: var(--bp_primary-h);
 }
+.bp__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 .bp__hero-root {
   background-color: var(--bp_primary);
   padding-bottom: 1.875rem;
+  border-bottom: 0.25rem solid var(--bp_secondary);
 }
 .bp__hero-root h1 {
   color: white;
@@ -124,9 +187,9 @@
   padding: 3.75rem 0;
 }
 .bp__deploy-tab svg {
-  height: 3.125rem;
-  fill: var(--bp_tertiary);
-  margin-bottom: 0.625rem;
+  max-width: 12.5rem;
+  fill: var(--bp_primary);
+  margin-bottom: 1.875rem;
 }
 .bp__deploy-tab h2 {
   margin-bottom: 0.3125rem;

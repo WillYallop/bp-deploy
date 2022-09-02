@@ -13,5 +13,9 @@
     &:hover {
       background-color: var(--bp_primary-h);
     }
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   }
 }
