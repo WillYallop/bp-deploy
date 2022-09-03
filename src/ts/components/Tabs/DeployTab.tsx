@@ -1,4 +1,38 @@
-const DeployTab = () => {
+// Util
+import { useState } from "react";
+import getNonce from "../../util/get-nonce";
+interface DeployTabProps {
+  setActiveTab: (tab: string) => void;
+}
+const DeployTab: React.FC<DeployTabProps> = ({ setActiveTab }) => {
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const triggerDeploy = () => {
+    const nonce = getNonce();
+    setLoading(true);
+    fetch("/wp-json/bp-deploy/v1/deploy", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-WP-Nonce": nonce,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "error") {
+          setError(true);
+        }
+        setLoading(false);
+        setActiveTab("history");
+      })
+      .catch((error) => {
+        setError(true);
+        setLoading(false);
+        console.error("Error:", error);
+      });
+  };
+
   return (
     <div className="bp__wrapper">
       <div className="bp__tab-wrapper">
@@ -204,7 +238,21 @@ const DeployTab = () => {
           </svg>
           <h2>Deploy Website</h2>
           <p>This typically takes 3 minutes to complete!</p>
-          <button className="bp__button">Deploy</button>
+          {error ? (
+            <div className="bp__deploy-tab__error">
+              <p>
+                There was an error! Please check the plugin, repository settings
+                and pipeline for misconfiguration.
+              </p>
+            </div>
+          ) : null}
+          <button
+            className="bp__button"
+            onClick={triggerDeploy}
+            disabled={loading}
+          >
+            {loading ? "Triggering deploy..." : "Deploy"}
+          </button>
         </div>
       </div>
     </div>

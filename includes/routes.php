@@ -2,6 +2,7 @@
 
 function BP_api_routes() {
     // V1 Routes
+    // Settings
     register_rest_route( 'bp-deploy/v1', '/settings', array(
         'methods' => 'GET',
         'callback' => 'BP_get_settings',
@@ -10,6 +11,29 @@ function BP_api_routes() {
     register_rest_route( 'bp-deploy/v1', '/settings', array(
         'methods' => 'POST',
         'callback' => 'BP_save_settings',
+        'permission_callback' => 'BP_authorised_users',
+    ));
+    // Deploy
+    register_rest_route( 'bp-deploy/v1', '/deploy', array(
+        'methods' => 'POST',
+        'callback' => 'BP_deploy',
+        'permission_callback' => 'BP_authorised_users',
+    ));
+    // Bitbucket webhook endpoints
+    register_rest_route( 'bp-deploy/v1', '/webhook/build-updated', array(
+        'methods' => 'POST',
+        'callback' => 'BP_webhook_build_update',
+    ));
+    // History
+    register_rest_route( 'bp-deploy/v1', '/history', array(
+        'methods' => 'GET',
+        'callback' => 'BP_get_history',
+        'permission_callback' => 'BP_authorised_users',
+    ));
+    // Check deploy status
+    register_rest_route( 'bp-deploy/v1', '/check-deploy-status', array(
+        'methods' => 'POST',
+        'callback' => 'BP_check_deploy_status',
         'permission_callback' => 'BP_authorised_users',
     ));
 }

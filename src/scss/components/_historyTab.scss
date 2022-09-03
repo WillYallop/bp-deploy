@@ -1,0 +1,90 @@
+@use "./index" as *;
+
+.bp {
+  &__history-row {
+    background-color: white;
+    margin-bottom: rem(5);
+    border-radius: rem(5);
+    padding: rem(15);
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &__rcol {
+        display: flex;
+        button {
+          height: rem(30);
+          width: rem(30);
+          border-radius: 50%;
+          margin-left: rem(15);
+          cursor: pointer;
+          border: none;
+          background-color: var(--bp_secondary);
+          color: white;
+          &.active {
+            svg {
+              transform: rotate(180deg);
+            }
+          }
+          svg {
+            transition: all 0.3s ease;
+            fill: white;
+            height: rem(15);
+          }
+        }
+      }
+      h3 {
+        font-size: rem(16);
+        font-weight: 500;
+        margin-bottom: rem(2);
+      }
+      p {
+        font-size: rem(14);
+      }
+    }
+    &__body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      &__inner {
+        border-top: rem(1) solid rgb(233, 233, 233);
+        padding-top: rem(10);
+        margin-top: rem(10);
+        .bp__button {
+          margin-top: rem(10);
+        }
+      }
+    }
+    &__state {
+      padding: rem(5) rem(10);
+      border-radius: rem(5);
+      font-size: rem(14);
+      font-weight: 500;
+      display: block;
+      &--PENDING {
+        background-color: rgb(255, 255, 0);
+        color: rgb(46, 46, 46);
+      }
+      &--COMPLETED {
+        background-color: rgb(27, 238, 133);
+        color: rgb(46, 46, 46);
+      }
+      &--IN_PROGRESS {
+        background-color: rgb(0, 255, 255);
+        color: rgb(46, 46, 46);
+      }
+      &--FAILED {
+        background-color: rgb(228, 46, 46);
+        color: white;
+      }
+      &--SUCCESSFUL {
+        background-color: rgb(27, 238, 133);
+        color: rgb(46, 46, 46);
+      }
+      &--STOPPED {
+        background-color: rgb(228, 46, 46);
+        color: white;
+      }
+    }
+  }
+}

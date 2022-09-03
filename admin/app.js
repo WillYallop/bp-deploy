@@ -251,6 +251,208 @@ exports["default"] = Form;
 
 /***/ }),
 
+/***/ "./src/ts/components/Partials/HistoryRow.tsx":
+/*!***************************************************!*\
+  !*** ./src/ts/components/Partials/HistoryRow.tsx ***!
+  \***************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+
+var __assign = this && this.__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var jsx_runtime_1 = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var get_nonce_1 = __importDefault(__webpack_require__(/*! ../../util/get-nonce */ "./src/ts/util/get-nonce.ts"));
+
+var HistoryRow = function HistoryRow(_a) {
+  var id = _a.id,
+      eleID = _a.eleID,
+      pipeline_id = _a.pipeline_id,
+      state = _a.state,
+      time = _a.time,
+      result = _a.result,
+      author_name = _a.author_name,
+      branch = _a.branch,
+      repository = _a.repository,
+      workspace = _a.workspace,
+      commit_id = _a.commit_id,
+      commit_url = _a.commit_url;
+
+  var _b = (0, react_1.useState)(false),
+      loading = _b[0],
+      setLoading = _b[1];
+
+  var _c = (0, react_1.useState)(result || state),
+      pipelineStatus = _c[0],
+      setPipelineStatus = _c[1];
+
+  var _d = (0, react_1.useState)(eleID === 0 ? true : false),
+      openState = _d[0],
+      setOpenState = _d[1];
+
+  var _e = (0, react_1.useState)(1000),
+      maxHeight = _e[0],
+      setMaxHeight = _e[1];
+
+  var ref = (0, react_1.createRef)();
+
+  var checkPipelineStatus = function checkPipelineStatus() {
+    var nonce = (0, get_nonce_1["default"])();
+    setLoading(true);
+    fetch("/wp-json/bp-deploy/v1/check-deploy-status", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-WP-Nonce": nonce
+      },
+      body: JSON.stringify({
+        pipelineId: pipeline_id
+      })
+    }).then(function (res) {
+      return res.json();
+    }).then(function (data) {
+      if (data.result) setPipelineStatus(data.result);else setPipelineStatus(data.status);
+      setLoading(false);
+    })["catch"](function (err) {
+      console.log(err);
+      setLoading(false);
+    });
+  };
+
+  var toggleAccordion = function toggleAccordion(s) {
+    setOpenState(s);
+    var current = ref.current;
+
+    if (s) {
+      current.style.maxHeight = "".concat(maxHeight, "px");
+    } else current.style.maxHeight = "".concat(0, "px");
+  };
+
+  (0, react_1.useEffect)(function () {
+    var current = ref.current;
+
+    if (current) {
+      setMaxHeight(current.scrollHeight);
+
+      if (eleID === 0) {
+        toggleAccordion(openState);
+      }
+    }
+  }, []);
+  return (0, jsx_runtime_1.jsxs)("li", __assign({
+    className: "bp__history-row"
+  }, {
+    children: [(0, jsx_runtime_1.jsxs)("div", __assign({
+      className: "bp__history-row__header"
+    }, {
+      children: [(0, jsx_runtime_1.jsxs)("div", {
+        children: [(0, jsx_runtime_1.jsx)("h3", {
+          children: "Deployment"
+        }), (0, jsx_runtime_1.jsxs)("p", {
+          children: ["Started at ", time]
+        })]
+      }), (0, jsx_runtime_1.jsxs)("div", __assign({
+        className: "bp__history-row__header__rcol"
+      }, {
+        children: [(0, jsx_runtime_1.jsxs)("span", __assign({
+          className: "bp__history-row__state bp__history-row__state--".concat(pipelineStatus)
+        }, {
+          children: [pipelineStatus === "PENDING" ? "pending" : null, pipelineStatus === "COMPLETED" ? "success" : null, pipelineStatus === "FAILED" ? "failed" : null, pipelineStatus === "IN_PROGRESS" ? "in progress" : null, pipelineStatus === "SUCCESSFUL" ? "success" : null, pipelineStatus === "STOPPED" ? "stopped" : null]
+        })), (0, jsx_runtime_1.jsx)("button", __assign({
+          "aria-expanded": openState,
+          "aria-controls": "accordion-".concat(eleID),
+          onClick: function onClick() {
+            return toggleAccordion(!openState);
+          },
+          className: "".concat(openState ? "active" : "")
+        }, {
+          children: (0, jsx_runtime_1.jsx)("svg", __assign({
+            xmlns: "http://www.w3.org/2000/svg",
+            viewBox: "0 0 320 512"
+          }, {
+            children: (0, jsx_runtime_1.jsx)("path", {
+              d: "M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
+            })
+          }))
+        }))]
+      }))]
+    })), (0, jsx_runtime_1.jsx)("div", __assign({
+      className: "bp__history-row__body",
+      id: "accordion-".concat(eleID),
+      ref: ref
+    }, {
+      children: (0, jsx_runtime_1.jsxs)("div", __assign({
+        className: "bp__history-row__body__inner"
+      }, {
+        children: [(0, jsx_runtime_1.jsxs)("ul", {
+          children: [(0, jsx_runtime_1.jsxs)("li", {
+            children: [(0, jsx_runtime_1.jsx)("b", {
+              children: "Author:"
+            }), " ", author_name]
+          }), (0, jsx_runtime_1.jsxs)("li", {
+            children: [(0, jsx_runtime_1.jsx)("b", {
+              children: "Branch:"
+            }), " ", branch]
+          }), (0, jsx_runtime_1.jsxs)("li", {
+            children: [(0, jsx_runtime_1.jsx)("b", {
+              children: "Repository:"
+            }), " ", repository]
+          }), (0, jsx_runtime_1.jsxs)("li", {
+            children: [(0, jsx_runtime_1.jsx)("b", {
+              children: "Workspace:"
+            }), " ", workspace]
+          }), (0, jsx_runtime_1.jsxs)("li", {
+            children: [(0, jsx_runtime_1.jsx)("b", {
+              children: "Commit: "
+            }), (0, jsx_runtime_1.jsx)("a", __assign({
+              href: commit_url,
+              target: "_blank"
+            }, {
+              children: commit_id
+            }))]
+          })]
+        }), (0, jsx_runtime_1.jsx)("button", __assign({
+          className: "bp__button",
+          onClick: checkPipelineStatus
+        }, {
+          children: loading ? "Loading..." : "Check status"
+        }))]
+      }))
+    }))]
+  }));
+};
+
+exports["default"] = HistoryRow;
+
+/***/ }),
+
 /***/ "./src/ts/components/Partials/Input.tsx":
 /*!**********************************************!*\
   !*** ./src/ts/components/Partials/Input.tsx ***!
@@ -355,13 +557,58 @@ var __assign = this && this.__assign || function () {
   return __assign.apply(this, arguments);
 };
 
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 
 var jsx_runtime_1 = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
-var DeployTab = function DeployTab() {
+var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var get_nonce_1 = __importDefault(__webpack_require__(/*! ../../util/get-nonce */ "./src/ts/util/get-nonce.ts"));
+
+var DeployTab = function DeployTab(_a) {
+  var setActiveTab = _a.setActiveTab;
+
+  var _b = (0, react_1.useState)(false),
+      error = _b[0],
+      setError = _b[1];
+
+  var _c = (0, react_1.useState)(false),
+      loading = _c[0],
+      setLoading = _c[1];
+
+  var triggerDeploy = function triggerDeploy() {
+    var nonce = (0, get_nonce_1["default"])();
+    setLoading(true);
+    fetch("/wp-json/bp-deploy/v1/deploy", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-WP-Nonce": nonce
+      }
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      if (data.status === "error") {
+        setError(true);
+      }
+
+      setLoading(false);
+      setActiveTab("history");
+    })["catch"](function (error) {
+      setError(true);
+      setLoading(false);
+      console.error("Error:", error);
+    });
+  };
+
   return (0, jsx_runtime_1.jsx)("div", __assign({
     className: "bp__wrapper"
   }, {
@@ -579,10 +826,18 @@ var DeployTab = function DeployTab() {
           children: "Deploy Website"
         }), (0, jsx_runtime_1.jsx)("p", {
           children: "This typically takes 3 minutes to complete!"
-        }), (0, jsx_runtime_1.jsx)("button", __assign({
-          className: "bp__button"
+        }), error ? (0, jsx_runtime_1.jsx)("div", __assign({
+          className: "bp__deploy-tab__error"
         }, {
-          children: "Deploy"
+          children: (0, jsx_runtime_1.jsx)("p", {
+            children: "There was an error! Please check the plugin, repository settings and pipeline for misconfiguration."
+          })
+        })) : null, (0, jsx_runtime_1.jsx)("button", __assign({
+          className: "bp__button",
+          onClick: triggerDeploy,
+          disabled: loading
+        }, {
+          children: loading ? "Triggering deploy..." : "Deploy"
         }))]
       }))
     }))
@@ -617,22 +872,78 @@ var __assign = this && this.__assign || function () {
   return __assign.apply(this, arguments);
 };
 
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 
 var jsx_runtime_1 = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
-var HistoryTab = function HistoryTab() {
+var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var react_2 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var get_nonce_1 = __importDefault(__webpack_require__(/*! ../../util/get-nonce */ "./src/ts/util/get-nonce.ts"));
+
+var index_1 = __webpack_require__(/*! ../index */ "./src/ts/components/index.tsx");
+
+var HistoryTab = function HistoryTab(_a) {
+  var _b = (0, react_2.useState)([]),
+      history = _b[0],
+      setHistory = _b[1];
+
+  var _c = (0, react_2.useState)(false),
+      loaded = _c[0],
+      setLoaded = _c[1];
+
+  var fetchHistory = function fetchHistory() {
+    var nonce = (0, get_nonce_1["default"])();
+    fetch("/wp-json/bp-deploy/v1/history", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-WP-Nonce": nonce
+      }
+    }).then(function (res) {
+      return res.json();
+    }).then(function (data) {
+      setHistory(data.history);
+      setLoaded(true);
+    });
+  };
+
+  (0, react_2.useEffect)(function () {
+    fetchHistory();
+  }, []);
   return (0, jsx_runtime_1.jsx)("div", __assign({
     className: "bp__wrapper"
   }, {
-    children: (0, jsx_runtime_1.jsx)("div", __assign({
+    children: loaded ? (0, jsx_runtime_1.jsx)("div", __assign({
+      className: "bp__tab-wrapper bp__tab-wrapper--history"
+    }, {
+      children: (0, jsx_runtime_1.jsx)("ul", {
+        children: history.map(function (item, index) {
+          return (0, react_1.createElement)(index_1.HistoryRow, __assign({}, item, {
+            eleID: index,
+            key: index
+          }));
+        })
+      })
+    })) : (0, jsx_runtime_1.jsx)("div", __assign({
       className: "bp__tab-wrapper"
     }, {
-      children: (0, jsx_runtime_1.jsx)("h2", {
-        children: "History Tab"
-      })
+      children: (0, jsx_runtime_1.jsx)("div", __assign({
+        className: "bp__loading-con"
+      }, {
+        children: (0, jsx_runtime_1.jsx)("h2", {
+          children: "Loading..."
+        })
+      }))
     }))
   }));
 };
@@ -854,7 +1165,7 @@ var __importDefault = this && this.__importDefault || function (mod) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.Form = exports.Input = exports.HistoryTab = exports.DeployTab = exports.SettingsTab = exports.Hero = void 0;
+exports.HistoryRow = exports.Form = exports.Input = exports.HistoryTab = exports.DeployTab = exports.SettingsTab = exports.Hero = void 0;
 
 var Hero_1 = __webpack_require__(/*! ./Blocks/Hero */ "./src/ts/components/Blocks/Hero.tsx");
 
@@ -907,6 +1218,15 @@ Object.defineProperty(exports, "Form", ({
   enumerable: true,
   get: function get() {
     return __importDefault(Form_1)["default"];
+  }
+}));
+
+var HistoryRow_1 = __webpack_require__(/*! ./Partials/HistoryRow */ "./src/ts/components/Partials/HistoryRow.tsx");
+
+Object.defineProperty(exports, "HistoryRow", ({
+  enumerable: true,
+  get: function get() {
+    return __importDefault(HistoryRow_1)["default"];
   }
 }));
 
@@ -980,7 +1300,9 @@ var Settings = function Settings() {
     children: [(0, jsx_runtime_1.jsx)(index_1.Hero, {
       activeTab: activeTab,
       setActiveTab: setActiveTab
-    }), activeTab === "deploy" && (0, jsx_runtime_1.jsx)(index_1.DeployTab, {}), activeTab === "settings" && (0, jsx_runtime_1.jsx)(index_1.SettingsTab, {}), activeTab === "history" && (0, jsx_runtime_1.jsx)(index_1.HistoryTab, {})]
+    }), activeTab === "deploy" && (0, jsx_runtime_1.jsx)(index_1.DeployTab, {
+      setActiveTab: setActiveTab
+    }), activeTab === "settings" && (0, jsx_runtime_1.jsx)(index_1.SettingsTab, {}), activeTab === "history" && (0, jsx_runtime_1.jsx)(index_1.HistoryTab, {})]
   }));
 };
 

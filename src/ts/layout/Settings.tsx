@@ -29,7 +29,7 @@ const Settings = () => {
   return (
     <div className="bp">
       <Hero activeTab={activeTab} setActiveTab={setActiveTab} />
-      {activeTab === "deploy" && <DeployTab />}
+      {activeTab === "deploy" && <DeployTab setActiveTab={setActiveTab} />}
       {activeTab === "settings" && <SettingsTab />}
       {activeTab === "history" && <HistoryTab />}
     </div>

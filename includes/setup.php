@@ -10,7 +10,6 @@ function BP_settings_page() {
 add_action( 'admin_menu', 'BP_settings_page' );
 
 
-
 // ----------------------
 // Enqueue scripts and styles
 // ----------------------

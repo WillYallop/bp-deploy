@@ -21,6 +21,11 @@
     border-radius: rem(5);
     padding: rem(20);
     margin-top: rem(-80);
+    &--history {
+      border-radius: 0;
+      padding: 0;
+      background-color: transparent;
+    }
     &__row {
       width: 100%;
       display: flex;
