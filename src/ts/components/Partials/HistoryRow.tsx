@@ -89,6 +89,7 @@ const HistoryRow: React.FC<HistoryProps> = ({
         <div>
           <h3>Deployment</h3>
           <p>Started at {time}</p>
+          {pipeline_id}
         </div>
         <div className="bp__history-row__header__rcol">
           <span

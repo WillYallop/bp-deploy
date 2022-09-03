@@ -19,11 +19,6 @@ function BP_api_routes() {
         'callback' => 'BP_deploy',
         'permission_callback' => 'BP_authorised_users',
     ));
-    // Bitbucket webhook endpoints
-    register_rest_route( 'bp-deploy/v1', '/webhook/build-updated', array(
-        'methods' => 'POST',
-        'callback' => 'BP_webhook_build_update',
-    ));
     // History
     register_rest_route( 'bp-deploy/v1', '/history', array(
         'methods' => 'GET',

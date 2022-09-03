@@ -377,7 +377,7 @@ var HistoryRow = function HistoryRow(_a) {
           children: "Deployment"
         }), (0, jsx_runtime_1.jsxs)("p", {
           children: ["Started at ", time]
-        })]
+        }), pipeline_id]
       }), (0, jsx_runtime_1.jsxs)("div", __assign({
         className: "bp__history-row__header__rcol"
       }, {
@@ -919,7 +919,7 @@ var HistoryTab = function HistoryTab(_a) {
       loadingMore = _e[0],
       setLoadingMore = _e[1];
 
-  var limit = 20;
+  var limit = 8;
 
   var _f = (0, react_2.useState)(0),
       skip = _f[0],

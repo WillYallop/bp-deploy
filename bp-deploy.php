@@ -72,6 +72,5 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/templates/settings-page.php
 require_once plugin_dir_path( __FILE__ ) . 'includes/callbacks/get-settings.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/callbacks/save-settings.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/callbacks/deploy.php';
-require_once plugin_dir_path( __FILE__ ) . 'includes/callbacks/webhook-build-update.php';
 require_once plugin_dir_path(__FILE__) . 'includes/callbacks/get-history.php';
 require_once plugin_dir_path(__FILE__) . 'includes/callbacks/check-deploy-status.php';

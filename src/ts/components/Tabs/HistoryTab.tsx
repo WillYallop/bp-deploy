@@ -12,7 +12,7 @@ const HistoryTab: React.FC = ({}) => {
   const [hideLoadMore, setHideLoadMore] = useState<boolean>(false);
   const [loadingMore, setLoadingMore] = useState<boolean>(false);
 
-  const limit = 20;
+  const limit = 8;
   const [skip, setSkip] = useState<number>(0);
 
   // Fetch history from API
