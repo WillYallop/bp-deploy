@@ -872,6 +872,16 @@ var __assign = this && this.__assign || function () {
   return __assign.apply(this, arguments);
 };
 
+var __spreadArray = this && this.__spreadArray || function (to, from, pack) {
+  if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+    if (ar || !(i in from)) {
+      if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+      ar[i] = from[i];
+    }
+  }
+  return to.concat(ar || Array.prototype.slice.call(from));
+};
+
 var __importDefault = this && this.__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
     "default": mod
@@ -901,9 +911,23 @@ var HistoryTab = function HistoryTab(_a) {
       loaded = _c[0],
       setLoaded = _c[1];
 
+  var _d = (0, react_2.useState)(false),
+      hideLoadMore = _d[0],
+      setHideLoadMore = _d[1];
+
+  var _e = (0, react_2.useState)(false),
+      loadingMore = _e[0],
+      setLoadingMore = _e[1];
+
+  var limit = 20;
+
+  var _f = (0, react_2.useState)(0),
+      skip = _f[0],
+      setSkip = _f[1];
+
   var fetchHistory = function fetchHistory() {
     var nonce = (0, get_nonce_1["default"])();
-    fetch("/wp-json/bp-deploy/v1/history", {
+    fetch("/wp-json/bp-deploy/v1/history?limit=".concat(limit, "&skip=").concat(skip), {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -917,23 +941,54 @@ var HistoryTab = function HistoryTab(_a) {
     });
   };
 
+  var loadMore = function loadMore() {
+    setSkip(skip + limit);
+    setLoadingMore(true);
+    var nonce = (0, get_nonce_1["default"])();
+    fetch("/wp-json/bp-deploy/v1/history?limit=".concat(limit, "&skip=").concat(skip), {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-WP-Nonce": nonce
+      }
+    }).then(function (res) {
+      return res.json();
+    }).then(function (data) {
+      console.log(data.history);
+
+      if (data.history.length === 0) {
+        setHideLoadMore(true);
+      }
+
+      setHistory(__spreadArray(__spreadArray([], history, true), data.history, true));
+      setLoaded(true);
+      setLoadingMore(false);
+    });
+  };
+
   (0, react_2.useEffect)(function () {
     fetchHistory();
   }, []);
   return (0, jsx_runtime_1.jsx)("div", __assign({
     className: "bp__wrapper"
   }, {
-    children: loaded ? (0, jsx_runtime_1.jsx)("div", __assign({
+    children: loaded ? (0, jsx_runtime_1.jsxs)("div", __assign({
       className: "bp__tab-wrapper bp__tab-wrapper--history"
     }, {
-      children: (0, jsx_runtime_1.jsx)("ul", {
+      children: [(0, jsx_runtime_1.jsx)("ul", {
         children: history.map(function (item, index) {
           return (0, react_1.createElement)(index_1.HistoryRow, __assign({}, item, {
             eleID: index,
             key: index
           }));
         })
-      })
+      }), history.length >= limit && !hideLoadMore ? (0, jsx_runtime_1.jsx)("button", __assign({
+        className: "bp__button bp__button--load-more",
+        onClick: loadMore,
+        disabled: loadingMore
+      }, {
+        children: loadingMore ? "Loading..." : "Load More"
+      })) : null]
     })) : (0, jsx_runtime_1.jsx)("div", __assign({
       className: "bp__tab-wrapper"
     }, {

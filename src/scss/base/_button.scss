@@ -10,6 +10,10 @@
     color: white;
     font-size: rem(16);
     cursor: pointer;
+    &--load-more {
+      width: 100%;
+      margin-top: rem(10);
+    }
     &:hover {
       background-color: var(--bp_primary-h);
     }

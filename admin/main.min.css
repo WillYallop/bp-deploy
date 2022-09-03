@@ -136,6 +136,10 @@
   font-size: 1rem;
   cursor: pointer;
 }
+.bp__button--load-more {
+  width: 100%;
+  margin-top: 0.625rem;
+}
 .bp__button:hover {
   background-color: var(--bp_primary-h);
 }
