@@ -92,4 +92,15 @@
   &__form-success {
     margin-bottom: rem(10);
   }
+  &__admin-deploy-button {
+    a {
+      transition: all 0.3s ease !important;
+      background-color: var(--bp_secondary) !important;
+      &:hover,
+      &:focus {
+        background-color: var(--bp_secondary-h) !important;
+        color: white !important;
+      }
+    }
+  }
 }

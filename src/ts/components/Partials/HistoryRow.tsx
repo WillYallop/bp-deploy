@@ -39,9 +39,10 @@ const HistoryRow: React.FC<HistoryProps> = ({
   const ref = createRef();
 
   // Check current status
-  const checkPipelineStatus = () => {
+  const checkPipelineStatus = (interval: boolean) => {
     const nonce = getNonce();
-    setLoading(true);
+
+    if (!interval) setLoading(true);
     fetch(`/wp-json/bp-deploy/v1/check-deploy-status`, {
       method: "POST",
       headers: {
@@ -56,7 +57,13 @@ const HistoryRow: React.FC<HistoryProps> = ({
       .then((data) => {
         if (data.result) setPipelineStatus(data.result);
         else setPipelineStatus(data.status);
-        setLoading(false);
+        if (interval) {
+          if (data.result !== null) {
+            sessionStorage.setItem("intervalSuccess", "true");
+          }
+        } else {
+          setLoading(false);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -72,14 +79,29 @@ const HistoryRow: React.FC<HistoryProps> = ({
     } else current.style.maxHeight = `${0}px`;
   };
 
+  const loopCheckFirstStatus = () => {
+    if (result === null) {
+      const intervalSuccess = sessionStorage.getItem("intervalSuccess");
+      if (intervalSuccess !== "true") {
+        checkPipelineStatus(true);
+        setTimeout(() => {
+          loopCheckFirstStatus();
+        }, 10000);
+      }
+    }
+  };
   useEffect(() => {
     const current = ref.current as HTMLElement;
     if (current) {
       setMaxHeight(current.scrollHeight);
       if (eleID === 0) {
         toggleAccordion(openState);
+        loopCheckFirstStatus();
       }
     }
+    return () => {
+      sessionStorage.removeItem("intervalSuccess");
+    };
   }, []);
 
   return (
@@ -89,7 +111,6 @@ const HistoryRow: React.FC<HistoryProps> = ({
         <div>
           <h3>Deployment</h3>
           <p>Started at {time}</p>
-          {pipeline_id}
         </div>
         <div className="bp__history-row__header__rcol">
           <span
@@ -141,7 +162,12 @@ const HistoryRow: React.FC<HistoryProps> = ({
               </a>
             </li>
           </ul>
-          <button className="bp__button" onClick={checkPipelineStatus}>
+          <button
+            className="bp__button"
+            onClick={() => {
+              checkPipelineStatus(false);
+            }}
+          >
             {loading ? "Loading..." : "Check status"}
           </button>
         </div>

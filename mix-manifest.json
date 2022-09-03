@@ -1,5 +1,6 @@
 {
     "/admin/app.js": "/admin/app.js",
+    "/admin/admin-bar-btn.js": "/admin/admin-bar-btn.js",
     "/admin/main.css": "/admin/main.css",
     "/admin/main.min.css": "/admin/main.min.css"
 }
