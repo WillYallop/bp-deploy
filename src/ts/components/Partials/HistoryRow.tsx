@@ -162,14 +162,19 @@ const HistoryRow: React.FC<HistoryProps> = ({
               </a>
             </li>
           </ul>
-          <button
-            className="bp__button"
-            onClick={() => {
-              checkPipelineStatus(false);
-            }}
-          >
-            {loading ? "Loading..." : "Check status"}
-          </button>
+          {pipelineStatus !== "COMPLETED" &&
+          pipelineStatus !== "SUCCESSFUL" &&
+          pipelineStatus !== "STOPPED" &&
+          pipelineStatus !== "FAILED" ? (
+            <button
+              className="bp__button"
+              onClick={() => {
+                checkPipelineStatus(false);
+              }}
+            >
+              {loading ? "Loading..." : "Check status"}
+            </button>
+          ) : null}
         </div>
       </div>
     </li>
