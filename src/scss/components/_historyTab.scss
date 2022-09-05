@@ -87,4 +87,22 @@
       }
     }
   }
+  &__no-history {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: rem(90) rem(30);
+    border-radius: rem(5);
+    text-align: center;
+    svg {
+      max-width: rem(200);
+      margin-bottom: rem(30);
+    }
+    p {
+      max-width: rem(400);
+      margin-top: rem(5);
+    }
+  }
 }

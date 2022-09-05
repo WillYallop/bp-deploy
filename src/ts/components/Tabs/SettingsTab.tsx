@@ -89,9 +89,15 @@ const SettingsTab = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setTimeout(() => {
-          setFormState("success");
-        }, 1000);
+        console.log(data);
+        if (data.data !== undefined) {
+          if (data.data.status === 403 || data.data.status === 401) {
+            setFormState("error");
+          } else {
+            setFormState("success");
+          }
+        } else setFormState("success");
+
         setTimeout(() => {
           setFormState("default");
         }, 5000);

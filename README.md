@@ -1,11 +1,11 @@
-# BP Deploy - v1.0.0
+# BP Deploy - v1.0.1
 
 BP Deploy is a simple Wordpress plugin to trigger Bitbucket pipelines. This plugin enables you to trigger a pipeline, view trigger history and configure the target repository, workspace and branch for your pipeline trigger.
 
 ## Getting started
 
 1. Enable pipelines in you Bitbucket repository!
-2. Create a pipeline that that triggers on a commit to a branch. Bellow is an example.
+2. Create a pipeline that triggers on a commit to a branch. Bellow is an example.
 
 ```yml
 pipelines:

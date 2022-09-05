@@ -36,6 +36,14 @@ const Form: React.FC<FormProps> = ({
           </p>
         </div>
       ) : null}
+      {state === "error" ? (
+        <div className="bp__form-success">
+          <p>
+            <strong>Error!</strong> Your settings could not be saved. Try
+            signing out and signing in again.
+          </p>
+        </div>
+      ) : null}
       <button
         className={`bp__button`}
         type="submit"
