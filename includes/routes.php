@@ -1,5 +1,15 @@
 <?php
 
+function BP_authorised_users($request) {
+    $userPerm = current_user_can('administrator') || current_user_can('editor') || current_user_can('author');
+    if ( is_user_logged_in() && $userPerm) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 function BP_api_routes() {
     // V1 Routes
     // Settings
@@ -34,7 +44,4 @@ function BP_api_routes() {
 }
 add_action('rest_api_init', 'BP_api_routes');
 
-// create a custom permission check
-function BP_authorised_users($request) {
-    return is_user_logged_in();
-}
+

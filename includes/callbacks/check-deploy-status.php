@@ -32,19 +32,21 @@ function BP_check_deploy_status() {
         ), $response['response']['code'] );
     }
 
+    $result = $response_body->state->result->name || null;
+
     global $wpdb;
     $table_name = $wpdb->prefix . 'bp_deploy_history';
     $wpdb->update( 
         $table_name, 
         array( 
-            'result' => $response_body->state->result->name,
+            'result' => $result,
             'state' => $response_body->state->name,
         ), 
         array( 'pipeline_id' => $response_body->uuid )
     );
 
     return new WP_REST_Response( array(
-        'result' => $response_body->state->result->name,
+        'result' => $result,
         'status' => $response_body->state->name,
         'pipelineId' => $response_body->uuid,
         'message' => 'Successfully updated the deployment status',
